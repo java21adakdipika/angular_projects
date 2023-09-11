@@ -1,0 +1,29 @@
+
+<br><h2 class="text-center">Reactive Forms</h2> 
+<form class="container" [formGroup]="userForm" (ngSubmit)="onSubmit()">
+  <div class="mb-3">
+    <label for="usernameInput" class="form-label">Name</label>
+    <input type="text" class="form-control" id="usernameInput" placeholder="Enter your name" formControlName="username" >
+    <span class="form-text" *ngIf="!userForm.get('username')?.valid && userForm.get('username')?.touched">Username is not valid</span><br>
+    <span class="form-text" *ngIf="userForm.get('username')?.hasError('minlength') && userForm.get('username')?.touched">Username should be atLeast 5</span>
+    
+  </div>
+  <div class="mb-3">
+    <label for="emailInput" class="form-label">Email address</label>
+    <input type="email" class="form-control" id="emailInput" placeholder="Enter your email-id" formControlName="email">
+    <span class="form-text" *ngIf="!userForm.get('email')?.valid && userForm.get('email')?.touched">Email is not valid</span>
+    
+    <br>
+  </div>
+  <select class="form-select" aria-label="Default select example" formControlName="degree">
+    <option selected>B-Tech</option>
+    <option value="M-Tech">M-Tech</option>
+    <option value="MBBS">MBBS</option>
+    <option value="Pharmacy">Pharmacy</option>
+  </select><br>
+  <div class="radio" *ngFor="let gender of genderList">
+    <label for=""><input type="radio" name="gender" formControlName="gender" [value]="gender"/>{{gender}}</label>
+  </div>
+  <button type="submit" class="btn btn-info" [disabled]="!userForm.valid">Submit</button>
+  <button type="button" class="btn btn-secondary" (click)="userForm.reset()">Reset</button>
+</form>
